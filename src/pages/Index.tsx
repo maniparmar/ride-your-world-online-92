@@ -3,6 +3,7 @@ import { Header } from "@/components/Header";
 import { HeroSection } from "@/components/HeroSection";
 import { VehicleGrid } from "@/components/VehicleGrid";
 import { VehicleCategories } from "@/components/VehicleCategories";
+import { VehicleDescriptions } from "@/components/VehicleDescriptions";
 
 const Index = () => {
   // Sample vehicle data
@@ -94,6 +95,7 @@ const Index = () => {
         vehicles={vehicles} 
         onAddVehicle={handleAddVehicle} 
       />
+      <VehicleDescriptions />
     </div>
   );
 };
