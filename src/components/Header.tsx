@@ -1,6 +1,7 @@
-import { Car } from "lucide-react";
+import { Car, Server } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { AddVehicleDialog } from "./AddVehicleDialog";
+import { Link } from "react-router-dom";
 
 interface HeaderProps {
   onAddVehicle: (vehicle: any) => void;
@@ -18,6 +19,12 @@ export const Header = ({ onAddVehicle }: HeaderProps) => {
 
         {/* Navigation Buttons */}
         <div className="flex items-center gap-3">
+          <Link to="/api-demo">
+            <Button variant="outline" className="border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white">
+              <Server className="h-4 w-4 mr-2" />
+              API Demo
+            </Button>
+          </Link>
           <Button variant="outline" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground">
             Sign In
           </Button>
