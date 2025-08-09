@@ -1,4 +1,4 @@
-import { Star, MapPin } from "lucide-react";
+import { IndianRupee, Star, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { RentVehicleDialog } from "./RentVehicleDialog";
@@ -12,6 +12,11 @@ interface VehicleCardProps {
   rating: number;
   image: string;
   status: "available" | "booked";
+  qr_code_url?: string;
+  owner?: {
+    full_name: string;
+    phone: string;
+  };
 }
 
 export const VehicleCard = ({ 
@@ -22,15 +27,25 @@ export const VehicleCard = ({
   price, 
   rating, 
   image, 
-  status 
+  status,
+  qr_code_url,
+  owner
 }: VehicleCardProps) => {
   return (
     <div className="bg-card rounded-xl border border-border overflow-hidden hover:shadow-xl transition-all duration-300 hover:scale-105">
       {/* Status Badge */}
       <div className="relative">
         <div className="aspect-video bg-muted flex items-center justify-center text-muted-foreground relative">
-          {/* Placeholder for vehicle image */}
-          <span className="text-6xl">📷</span>
+          {image && image.startsWith('http') ? (
+            <img 
+              src={image} 
+              alt={name}
+              className="w-full h-full object-cover"
+            />
+          ) : (
+            /* Placeholder for vehicle image */
+            <span className="text-6xl">🚗</span>
+          )}
           
           {/* Status Badge */}
           <Badge 
@@ -68,14 +83,28 @@ export const VehicleCard = ({
             <span className="font-medium">{rating}</span>
           </div>
           <div className="text-right">
-            <span className="text-2xl font-bold text-primary">${price}</span>
-            <span className="text-muted-foreground">/day</span>
+            <div className="flex items-center gap-1">
+              <IndianRupee className="h-5 w-5 text-primary" />
+              <span className="text-2xl font-bold text-primary">{price}</span>
+            </div>
+            <span className="text-muted-foreground text-sm">/day</span>
           </div>
         </div>
 
         {/* Rent Button */}
         {status === "available" ? (
-          <RentVehicleDialog vehicle={{ id, name, type, location, price, rating }}>
+          <RentVehicleDialog 
+            vehicle={{ 
+              id, 
+              name, 
+              type, 
+              location, 
+              price, 
+              rating,
+              qr_code_url,
+              owner 
+            }}
+          >
             <Button className="w-full">
               Rent Now
             </Button>
